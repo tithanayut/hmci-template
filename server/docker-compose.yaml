@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  traefik:
+    image: traefik:v2.7
+    container_name: traefik
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/traefik.toml:/traefik.toml
+      - ./traefik/acme.json:/acme.json
+    networks:
+      - hmci-network
+    env_file:
+      - ./traefik/.env
+  default:
+    image: ghcr.io/tithanayut/hmci-default:latest
+    container_name: hmci-default
+    restart: always
+    networks:
+      - hmci-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.hmci-default.rule=HostRegexp(`example.com`, `{subdomain:.+}.example.com`)
+      - traefik.http.routers.hmci-default.priority=1
+      - traefik.http.routers.hmci-default.tls=true
+      - traefik.http.routers.hmci-default.tls.certresolver=letsencrypt
+      - traefik.http.routers.hmci-default.tls.domains[0].main=example.com
+      - traefik.http.routers.hmci-default.tls.domains[0].sans=*.example.com
+
+networks:
+  hmci-network:
+    name: hmci-network
