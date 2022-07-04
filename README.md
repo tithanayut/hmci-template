@@ -21,6 +21,6 @@ First setup the server,
 6. Edit `traefik.toml` ACME DNS-01 challenge configuration to match the provider you are using according to the [documentation](https://doc.traefik.io/traefik/https/acme/). This step is required for obtaining Let's Encrypt wildcard TLS/SSL certificate. You may adjust the configuration to use TLS or HTTP challenge, but remember that there are [rate limits](https://letsencrypt.org/docs/rate-limits/). Traefik will request new certificate for a sub-domain every time there is a new PR created, so you better use the wildcard certificate.
 7. Start docker-compose.yaml
 
-Next, setup your DNS to point \*.example.com to the remote host. Your DNS server/provider need to support wildcard records.
+Next, setup a DNS record to point \*.example.com to the remote host. Your DNS server/provider need to support wildcard records.
 
-Lastly, copy and commit `deploy-preview.yaml` and `dispose-preview.yaml` to `.github/workflows/` directory of your repository. You can now check if it is working or not. 
+Lastly, copy and commit `deploy-preview.yaml` and `dispose-preview.yaml` to `.github/workflows/` directory on the main branch of your repository. You can now check if it is working or not by opening a PR that branchs from the main branch. 
