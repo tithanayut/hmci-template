@@ -19,9 +19,9 @@ First set up the server,
 4. Clone this repo and transfer the `server` folder to the remote host.
 5. Find and replace `example.com` and ` admin@example.com` with appropriate values. Note that `example.com` will be the base domain for deploy preview—i.e., the template will create a new deploy preview at `preview-pr1.example.com` where 1 is a PR number.
 6. Edit `traefik.toml` ACME DNS-01 challenge configuration to match the provider you are using according to the [documentation](https://doc.traefik.io/traefik/https/acme/). This step is required for obtaining Let's Encrypt wildcard TLS/SSL certificate. You may adjust the configuration to use TLS or HTTP challenge instead, but remember that this will make Traefik request a new certificate for every deploy preview since a new subdomain is created. There are [rate limits](https://letsencrypt.org/docs/rate-limits/) for doing this, so you better use the wildcard certificate.
-7. Start docker-compose.yaml
+7. Start `docker-compose.yaml`
 
-Next, set up a DNS record to point \*.example.com to the remote host. Your DNS server/provider needs to support wildcard records.
+Next, set up a DNS record to point `*.example.com` to the remote host. Your DNS server/provider needs to support wildcard records.
 
 Lastly, the Git-side.
 
@@ -34,7 +34,7 @@ Lastly, the Git-side.
 | VM_HOST     | Hostname or IP of the remote host.                                                                                                                                                   |
 | VM_USERNAME | Username you created in step 2 of the server setup.                                                                                                                                  |
 | VM_KEY      | Private key of the user above.                                                                                                                                                       |
-| CR_USERNAME | Username to authenticate with ghcr.io (typically your GitHub username)                                                                                                               |
-| CR_PAT      | GitHub Personal Access Token with at least read:packages, write:packages, and delete:packages scope. to                                                                              |
+| CR_USERNAME | Username to authenticate with `ghcr.io` (typically your GitHub username)                                                                                                             |
+| CR_PAT      | GitHub Personal Access Token with at least `read:packages`, `write:packages`, and `delete:packages` scope.                                                                           |
 
 You can now check if it is working or not by opening a PR that branches from the main branch. After a short while, you should see the comment from the GitHub Actions bot for the deploy preview URL. You can always adjust the configuration to your preference (like using another container registry)!.
