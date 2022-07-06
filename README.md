@@ -17,7 +17,7 @@ First set up the server,
 2. Create a new user for GitHub Actions runner and assign the user to the docker group according to [Post-installation steps for Linux](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script).
 3. Generate and assign new key pair for that user. GitHub Actions runner should be able to log in via SSH using the private key.
 4. Clone this repo and transfer the `server` folder to the remote host.
-5. Find and replace `example.com` and ` admin@example.com` with appropriate values.
+5. Find and replace `example.com` and ` admin@example.com` with appropriate values. Note that `example.com` will be the base domain for deploy preview—i.e., the template will create a new deploy preview at `preview-pr1.example.com` where 1 is a PR number.
 6. Edit `traefik.toml` ACME DNS-01 challenge configuration to match the provider you are using according to the [documentation](https://doc.traefik.io/traefik/https/acme/). This step is required for obtaining Let's Encrypt wildcard TLS/SSL certificate. You may adjust the configuration to use TLS or HTTP challenge instead, but remember that this will make Traefik request a new certificate for every deploy preview since a new subdomain is created. There are [rate limits] for doing this (https://letsencrypt.org/docs/rate-limits/), so you better use the wildcard certificate.
 7. Start docker-compose.yaml
 
